@@ -1,0 +1,8 @@
+__pycache__
+.vscode
+
+style_ref
+test_file
+
+.env
+.session_cache.json

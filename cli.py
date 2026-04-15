@@ -1,6 +1,7 @@
 import argparse
 import json
 import sys
+from datetime import datetime
 
 import api
 import session
@@ -17,6 +18,7 @@ from elements.author import AuthorElement
 from elements.image import ImageElement
 from elements.table import TableElement
 from elements.label import LabelElement
+from elements.style_schemas import ELEMENT_STYLE_SCHEMAS
 
 ELEMENT_REGISTRY = {
     "title":     TitleElement,
@@ -172,6 +174,105 @@ def cmd_replace(args):
         print(json.dumps(data, ensure_ascii=False, indent=2))
 
 
+def _parse_kv_list(kv_list: list[str], flag_name: str) -> dict:
+    """将 ['key=value', ...] 解析为 dict，value 尝试 JSON 解析（支持 true/false/数字）。"""
+    result = {}
+    for item in (kv_list or []):
+        if "=" not in item:
+            sys.exit(f"error: {flag_name} 格式应为 key=value，收到: {item!r}")
+        k, _, v = item.partition("=")
+        try:
+            result[k] = json.loads(v)
+        except json.JSONDecodeError:
+            result[k] = v
+    return result
+
+
+def _fmt_time(ts: int, raw: bool) -> str:
+    if raw:
+        return str(ts)
+    return datetime.fromtimestamp(ts).strftime("%Y-%m-%d %H:%M:%S")
+
+
+def _fetch_doc_list() -> list:
+    return api.post("/article/v1/doc/list", {}).get("articles", [])
+
+
+def cmd_doc_create(args):
+    data = api.post("/article/v1/doc/create", {"group": args.group_id, "name": args.name})
+    article = data.get("article", {})
+    print(f"创建成功")
+    print(f"  outer_id: {article.get('outer_id')}")
+    print(f"  name:     {article.get('name')}")
+    print(f"  group:    {data.get('group')}")
+
+
+def cmd_doc_delete(args):
+    data = api.post("/article/v1/doc/delete", {"docId": args.doc_id})
+    print(f"删除成功：{data.get('article')}")
+
+
+def cmd_list_groups(args):  # noqa: ARG001
+    groups = _fetch_doc_list()
+    print(f"{'GROUP_ID':<12} NAME")
+    print("-" * 40)
+    for g in groups:
+        print(f"{g['group_id']:<12} {g['name']}")
+
+
+def cmd_list_articles(args):
+    groups = _fetch_doc_list()
+
+    if args.json:
+        result = []
+        for g in groups:
+            if args.group_id is not None and g["group_id"] != args.group_id:
+                continue
+            result.append(g)
+        print(json.dumps(result, ensure_ascii=False, indent=2))
+        return
+
+    def print_article(article, group_name, indent=0):
+        prefix = "  " * indent + ("└ " if indent > 0 else "")
+        ts = _fmt_time(article["time_create"], args.raw)
+        gname = group_name if indent == 0 else ""
+        print(f"{gname:<14} {prefix}{article['outer_id']:<22} {article['name']:<32} {ts}")
+        for child in article.get("children", []):
+            print_article(child, "", indent + 1)
+
+    print(f"{'GROUP':<14} {'DOC_ID':<22} {'NAME':<32} 创建时间")
+    print("-" * 90)
+    for g in groups:
+        if args.group_id is not None and g["group_id"] != args.group_id:
+            continue
+        for article in g.get("articles", []):
+            print_article(article, g["name"])
+
+
+def cmd_style_schema(args):
+    types = [args.type] if args.type else sorted(ELEMENT_STYLE_SCHEMAS)
+    for block_type in types:
+        schema = ELEMENT_STYLE_SCHEMAS[block_type]
+        print(f"Block type: {block_type}")
+        css_fields = schema.get("style")
+        if css_fields:
+            print(f"  CSS fields (--css):")
+            for f in sorted(css_fields):
+                print(f"    {f}")
+        props = {k: v for k, v in schema.items() if k != "style"}
+        if props:
+            print(f"  Block props (--prop):")
+            for k, v in sorted(props.items()):
+                if isinstance(v, type):
+                    type_hint = v.__name__
+                elif isinstance(v, set):
+                    type_hint = "{" + ", ".join(str(x) for x in sorted(str(i) for i in v)) + "}"
+                else:
+                    type_hint = str(v)
+                print(f"    {k:<20} {type_hint}")
+        print()
+
+
 def cmd_block_style(args):
     from elements.style_schemas import validate_css_style, validate_block_style
     sid = _ensure_session()
@@ -187,21 +288,31 @@ def cmd_block_style(args):
 
     payload = {"sessionId": sid, "blockId": args.id}
 
+    # 构建 css_style：--css-style JSON 优先，--css key=value 次之
+    css_style = {}
     if args.css_style:
         try:
             css_style = json.loads(args.css_style)
         except json.JSONDecodeError as e:
             sys.exit(f"error: --css-style JSON 解析失败: {e}")
+    if args.css:
+        css_style.update(_parse_kv_list(args.css, "--css"))
+    if css_style:
         errors = validate_css_style(block_type, css_style)
         if errors:
             sys.exit("error: css-style 校验失败:\n" + "\n".join(f"  {e}" for e in errors))
         payload["style"] = css_style
 
+    # 构建 block_style：--style JSON 优先，--prop key=value 次之
+    block_style = {}
     if args.style:
         try:
             block_style = json.loads(args.style)
         except json.JSONDecodeError as e:
             sys.exit(f"error: --style JSON 解析失败: {e}")
+    if args.prop:
+        block_style.update(_parse_kv_list(args.prop, "--prop"))
+    if block_style:
         errors = validate_block_style(block_type, block_style)
         if errors:
             sys.exit("error: style 校验失败:\n" + "\n".join(f"  {e}" for e in errors))
@@ -220,6 +331,19 @@ def cmd_block_style(args):
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="cli.py", description="文档编辑 CLI")
     sub = parser.add_subparsers(dest="command", required=True)
+
+    # --- doc ---
+    p_doc = sub.add_parser("doc", help="文档管理")
+    s_doc = p_doc.add_subparsers(dest="subcommand", required=True)
+
+    p_dcreate = s_doc.add_parser("create", help="创建文档")
+    p_dcreate.add_argument("--name", required=True, help="文档名称")
+    p_dcreate.add_argument("--group-id", type=int, default=0, help="所属 group ID（默认 0）")
+    p_dcreate.set_defaults(func=cmd_doc_create)
+
+    p_ddelete = s_doc.add_parser("delete", help="删除文档")
+    p_ddelete.add_argument("--doc-id", required=True, help="文档 ID")
+    p_ddelete.set_defaults(func=cmd_doc_delete)
 
     # --- session ---
     p_session = sub.add_parser("session", help="session 管理")
@@ -282,9 +406,32 @@ def build_parser() -> argparse.ArgumentParser:
     # --- block-style ---
     p_bstyle = sub.add_parser("block-style", help="修改块样式")
     p_bstyle.add_argument("--id", required=True, help="块 ID")
-    p_bstyle.add_argument("--css-style", default=None, help="CSS 样式 JSON，如 '{\"fontSize\":\"16px\",\"color\":\"#333\"}'")
-    p_bstyle.add_argument("--style", default=None, help="block 特有样式 JSON，如 '{\"isTemplate\":true,\"indent\":true}'")
+    p_bstyle.add_argument("--css-style", default=None, help="CSS 样式 JSON，如 '{\"fontSize\":\"16px\"}'（与 --css 二选一或混用）")
+    p_bstyle.add_argument("--css", action="append", metavar="key=value",
+                          help="CSS 样式键值对，可重复，如 --css fontSize=16px --css color=#333")
+    p_bstyle.add_argument("--style", default=None, help="block 特有样式 JSON，如 '{\"isTemplate\":true}'（与 --prop 二选一或混用）")
+    p_bstyle.add_argument("--prop", action="append", metavar="key=value",
+                          help="block 特有样式键值对，可重复，如 --prop isTemplate=true --prop indent=true")
     p_bstyle.set_defaults(func=cmd_block_style)
+
+    # --- list ---
+    p_list = sub.add_parser("list", help="列出 group 或文章")
+    s_list = p_list.add_subparsers(dest="subcommand", required=True)
+
+    p_lgroups = s_list.add_parser("groups", help="列出所有 group")
+    p_lgroups.set_defaults(func=cmd_list_groups)
+
+    p_larticles = s_list.add_parser("articles", help="列出文章")
+    p_larticles.add_argument("--group-id", type=int, default=None, help="只列出指定 group 的文章")
+    p_larticles.add_argument("--raw", action="store_true", help="时间戳保留原始数字")
+    p_larticles.add_argument("--json", action="store_true", help="输出原始 JSON")
+    p_larticles.set_defaults(func=cmd_list_articles)
+
+    # --- style-schema ---
+    p_schema = sub.add_parser("style-schema", help="查询 block 类型支持的样式字段")
+    p_schema.add_argument("--type", choices=list(ELEMENT_STYLE_SCHEMAS),
+                          default=None, help="block 类型，省略则列出所有类型")
+    p_schema.set_defaults(func=cmd_style_schema)
 
     return parser
 

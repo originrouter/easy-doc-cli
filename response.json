@@ -1,0 +1,651 @@
+[
+  {
+    "group_id": 0,
+    "name": "我的私人文章",
+    "isCreator": true,
+    "articles": [
+      {
+        "outer_id": "73490789023490048",
+        "name": "2024-10-20 11:06:09创建的文章",
+        "group": 0,
+        "sharePermission": {
+          "operation": true,
+          "permission": "group-only"
+        },
+        "children": [],
+        "fileholderDeep": 0,
+        "time_create": 1729422369
+      },
+      {
+        "outer_id": "76008511171076096",
+        "name": "极译文章 - 使用教程",
+        "group": 0,
+        "sharePermission": {
+          "operation": true,
+          "permission": "group-only"
+        },
+        "children": [],
+        "fileholderDeep": 0,
+        "time_create": 1730022640
+      },
+      {
+        "outer_id": "83944327700684800",
+        "name": "2024-11-18 07:24:47创建的文章",
+        "group": 0,
+        "sharePermission": {
+          "operation": true,
+          "permission": "group-only"
+        },
+        "children": [],
+        "fileholderDeep": 0,
+        "time_create": 1731914687
+      },
+      {
+        "outer_id": "96656557512728576",
+        "name": "​quantum Hamilton Jacobi",
+        "group": 0,
+        "sharePermission": {
+          "operation": true,
+          "permission": "group-only"
+        },
+        "children": [],
+        "fileholderDeep": 0,
+        "time_create": 1734945519
+      },
+      {
+        "outer_id": "157883134715764736",
+        "name": "2025-06-10 16:11:12创建的文章",
+        "group": 0,
+        "sharePermission": {
+          "operation": true,
+          "permission": "group-only"
+        },
+        "children": [],
+        "fileholderDeep": 0,
+        "time_create": 1749543072
+      },
+      {
+        "outer_id": "210457093134753792",
+        "name": "极易云文档如何提交",
+        "group": 0,
+        "sharePermission": {
+          "operation": true,
+          "permission": "public"
+        },
+        "children": [],
+        "fileholderDeep": 0,
+        "time_create": 1762077681
+      },
+      {
+        "outer_id": "267699966355578880",
+        "name": "2026-04-09 17:04:05创建的文章",
+        "group": 0,
+        "sharePermission": {
+          "operation": true,
+          "permission": "group-only"
+        },
+        "children": [],
+        "fileholderDeep": 0,
+        "time_create": 1775725445
+      }
+    ]
+  },
+  {
+    "group_id": 7,
+    "name": "葡萄计算",
+    "isCreator": true,
+    "articles": [
+      {
+        "outer_id": "77468056640692224",
+        "name": "GRAPE",
+        "group": 7,
+        "sharePermission": {
+          "operation": true,
+          "permission": "group-only"
+        },
+        "children": [],
+        "fileholderDeep": 0,
+        "time_create": 1730370623
+      },
+      {
+        "outer_id": "85448214991478784",
+        "name": "GRAPE修改版与测试",
+        "group": 7,
+        "sharePermission": {
+          "operation": true,
+          "permission": "group-only"
+        },
+        "children": [],
+        "fileholderDeep": 0,
+        "time_create": 1732273241
+      }
+    ],
+    "time_create": 1732273241
+  },
+  {
+    "group_id": 3,
+    "name": "蔡浩课题组",
+    "isCreator": false,
+    "articles": [
+      {
+        "outer_id": "136890280719818752",
+        "name": "分波分析方法​",
+        "group": 3,
+        "sharePermission": {
+          "operation": true,
+          "permission": "group-only"
+        },
+        "children": [
+          {
+            "outer_id": "136890513189117952",
+            "name": "​分波分析简介",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1744538041
+          },
+          {
+            "outer_id": "136890741921292288",
+            "name": "CGPWA简介",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1744538096
+          },
+          {
+            "outer_id": "136892052104421376",
+            "name": "分波分析理论公式",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1744538408
+          },
+          {
+            "outer_id": "136916783830540288",
+            "name": "程序与公式对应",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1744544305
+          },
+          {
+            "outer_id": "136920422934519808",
+            "name": "Optimization 接口",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1744545172
+          },
+          {
+            "outer_id": "136920649053642752",
+            "name": "代码生成",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1744545226
+          },
+          {
+            "outer_id": "136922716644188160",
+            "name": "似然函数多GPU并行",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1744545719
+          },
+          {
+            "outer_id": "136923367717609472",
+            "name": "加参数范围的方法",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1744545874
+          },
+          {
+            "outer_id": "136924354465374208",
+            "name": "MC抽样方法",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1744546110
+          },
+          {
+            "outer_id": "136924666429317120",
+            "name": "phikk和phipipi的共振态",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1744546184
+          },
+          {
+            "outer_id": "136925102540464128",
+            "name": "显著性计算公式",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1744546288
+          },
+          {
+            "outer_id": "136925589834702848",
+            "name": "WHU超算使用方法",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1744546404
+          },
+          {
+            "outer_id": "136926070258671616",
+            "name": "拟合误差",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1744546519
+          },
+          {
+            "outer_id": "136927053164453888",
+            "name": " 产生像空间蒙卡",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1744546753
+          },
+          {
+            "outer_id": "136927486872264704",
+            "name": "董燎原程序包",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1744546856
+          },
+          {
+            "outer_id": "136928363670544384",
+            "name": "环境配置",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1744547065
+          }
+        ],
+        "fileholderDeep": 0,
+        "time_create": 1744537986
+      },
+      {
+        "outer_id": "137255109376745472",
+        "name": "分波分析1",
+        "group": 3,
+        "sharePermission": {
+          "operation": true,
+          "permission": "group-only"
+        },
+        "children": [],
+        "fileholderDeep": 0,
+        "time_create": 1744624968
+      },
+      {
+        "outer_id": "137256253364772864",
+        "name": "psi(2s) →phi pipi",
+        "group": 3,
+        "sharePermission": {
+          "operation": true,
+          "permission": "group-only"
+        },
+        "children": [],
+        "fileholderDeep": 0,
+        "time_create": 1744625240
+      },
+      {
+        "outer_id": "137257760608886784",
+        "name": "psi(2s) → phi KK",
+        "group": 3,
+        "sharePermission": {
+          "operation": true,
+          "permission": "group-only"
+        },
+        "children": [],
+        "fileholderDeep": 0,
+        "time_create": 1744625600
+      },
+      {
+        "outer_id": "137258530360139776",
+        "name": "分波分析流程",
+        "group": 3,
+        "sharePermission": {
+          "operation": true,
+          "permission": "group-only"
+        },
+        "children": [],
+        "fileholderDeep": 0,
+        "time_create": 1744625783
+      },
+      {
+        "outer_id": "137259146771832832",
+        "name": "weight_kk和weight_pipi",
+        "group": 3,
+        "sharePermission": {
+          "operation": true,
+          "permission": "group-only"
+        },
+        "children": [],
+        "fileholderDeep": 0,
+        "time_create": 1744625930
+      },
+      {
+        "outer_id": "137259420999622656",
+        "name": "fraction约束验证",
+        "group": 3,
+        "sharePermission": {
+          "operation": true,
+          "permission": "group-only"
+        },
+        "children": [],
+        "fileholderDeep": 0,
+        "time_create": 1744625996
+      },
+      {
+        "outer_id": "137260886548160512",
+        "name": "pull分布讨论",
+        "group": 3,
+        "sharePermission": {
+          "operation": true,
+          "permission": "group-only"
+        },
+        "children": [],
+        "fileholderDeep": 0,
+        "time_create": 1744626345
+      },
+      {
+        "outer_id": "137261079154794496",
+        "name": "使用新约束方法的结果",
+        "group": 3,
+        "sharePermission": {
+          "operation": true,
+          "permission": "group-only"
+        },
+        "children": [],
+        "fileholderDeep": 0,
+        "time_create": 1744626391
+      },
+      {
+        "outer_id": "137262523744395264",
+        "name": "GRAPE开发",
+        "group": 3,
+        "sharePermission": {
+          "operation": true,
+          "permission": "group-only"
+        },
+        "children": [
+          {
+            "outer_id": "137262866620358656",
+            "name": "julia性能测试",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1744626817
+          },
+          {
+            "outer_id": "137263216236568576",
+            "name": "kerr度规下的克式符与不变量",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1744626900
+          },
+          {
+            "outer_id": "137263442766733312",
+            "name": "测试报告",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1744626954
+          },
+          {
+            "outer_id": "137263859454058496",
+            "name": "Test Report",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1744627054
+          },
+          {
+            "outer_id": "137264258839879680",
+            "name": "龙格库塔法收敛性测试",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1744627149
+          },
+          {
+            "outer_id": "137264336740687872",
+            "name": "预测最大迭代次数",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1744627168
+          },
+          {
+            "outer_id": "137264754539503616",
+            "name": "113精度的进一步测试",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1744627267
+          },
+          {
+            "outer_id": "137265661536772096",
+            "name": "舍入误差的初值敏感性测试",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1744627483
+          },
+          {
+            "outer_id": "137265927459840000",
+            "name": "Lense-Thirring进动",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1744627547
+          },
+          {
+            "outer_id": "137266054442393600",
+            "name": "报告2",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1744627577
+          },
+          {
+            "outer_id": "137266482924101632",
+            "name": "report 2",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1744627679
+          }
+        ],
+        "fileholderDeep": 0,
+        "time_create": 1744626735
+      },
+      {
+        "outer_id": "268355091201925120",
+        "name": "cli test",
+        "group": 3,
+        "sharePermission": {
+          "operation": true,
+          "permission": "group-only"
+        },
+        "children": [
+          {
+            "outer_id": "267699753020694528",
+            "name": "openclaw_test",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1775725394
+          },
+          {
+            "outer_id": "268461257311526912",
+            "name": "Bug_report",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1775906951
+          },
+          {
+            "outer_id": "269105197421305856",
+            "name": "Introduction",
+            "group": 3,
+            "sharePermission": {
+              "operation": true,
+              "permission": "group-only"
+            },
+            "children": [],
+            "fileholderDeep": 1,
+            "time_create": 1776060478
+          }
+        ],
+        "fileholderDeep": 0,
+        "time_create": 1775881639
+      },
+      {
+        "outer_id": "269108968276762624",
+        "name": "梯子",
+        "group": 3,
+        "sharePermission": {
+          "operation": true,
+          "permission": "group-only"
+        },
+        "children": [],
+        "fileholderDeep": 0,
+        "time_create": 1776061377
+      }
+    ]
+  },
+  {
+    "group_id": 8,
+    "name": "光芯片分类小组",
+    "isCreator": false,
+    "articles": []
+  },
+  {
+    "group_id": 10,
+    "name": "Paragraph RAG",
+    "isCreator": false,
+    "articles": []
+  }
+]

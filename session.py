@@ -1,7 +1,9 @@
 import json
 import os
+import time
 
 CACHE_FILE = ".session_cache.json"
+SESSION_TTL = 600  # 10 minutes
 
 
 class SessionError(Exception):
@@ -16,8 +18,16 @@ def load_cache() -> dict:
 
 
 def save_cache(data: dict):
+    data["createdAt"] = time.time()
     with open(CACHE_FILE, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=4, ensure_ascii=False)
+
+
+def is_expired(cache: dict) -> bool:
+    created_at = cache.get("createdAt")
+    if created_at is None:
+        return True
+    return time.time() - created_at > SESSION_TTL
 
 
 def get_session_id() -> str:

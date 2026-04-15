@@ -36,6 +36,30 @@ ELEMENT_REGISTRY = {
 
 
 # ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
+def _ensure_session() -> str:
+    """返回有效的 sessionId，过期则自动重建。"""
+    cache = session.get_cache()
+    if session.is_expired(cache):
+        doc_id = cache.get("docId")
+        if not doc_id:
+            raise session.SessionError("session 已过期且缓存中无 docId，请手动重新创建")
+        print("session 已过期，正在自动重建...")
+        data = api.post("/article/v1/session/create", {"docId": doc_id})
+        session.save_cache({
+            "docId": doc_id,
+            "sessionId": data.get("sessionId"),
+            "blockCount": data.get("blockCount"),
+        })
+        sid = data.get("sessionId") or ""
+        print(f"session 已自动重建（sessionId: {sid}）")
+        return sid
+    return cache.get("sessionId") or ""
+
+
+# ---------------------------------------------------------------------------
 # Handlers
 # ---------------------------------------------------------------------------
 
@@ -59,7 +83,7 @@ def cmd_session_info(args):
 
 
 def cmd_read_doc(args):
-    sid = session.get_session_id()
+    sid = _ensure_session()
     data = api.post("/article/v1/doc/read", {"sessionId": sid})
     if args.blocks:
         for block in data.get("blocks", []):
@@ -71,7 +95,7 @@ def cmd_read_doc(args):
 
 
 def cmd_read_block(args):
-    sid = session.get_session_id()
+    sid = _ensure_session()
     data = api.post("/article/v1/doc/read-block", {
         "sessionId": sid,
         "blockId": args.id,
@@ -80,7 +104,7 @@ def cmd_read_block(args):
 
 
 def cmd_insert(args):
-    sid = session.get_session_id()
+    sid = _ensure_session()
 
     # 通过 block-id 查询 path
     block_data = api.post("/article/v1/doc/read-block", {
@@ -121,7 +145,7 @@ def cmd_insert(args):
 
 
 def cmd_append(args):
-    sid = session.get_session_id()
+    sid = _ensure_session()
     from latex_to_leaves import latex_to_leaves
     leaves = latex_to_leaves(args.latex) if args.latex else [{"type": "default", "text": args.text}]
     data = api.post("/article/v1/block/text/append", {
@@ -135,7 +159,7 @@ def cmd_append(args):
 
 
 def cmd_replace(args):
-    sid = session.get_session_id()
+    sid = _ensure_session()
     from latex_to_leaves import latex_to_leaves
     leaves = latex_to_leaves(args.latex) if args.latex else [{"type": "default", "text": args.text}]
     data = api.post("/article/v1/block/text/replace", {
@@ -150,7 +174,7 @@ def cmd_replace(args):
 
 def cmd_block_style(args):
     from elements.style_schemas import validate_css_style, validate_block_style
-    sid = session.get_session_id()
+    sid = _ensure_session()
 
     # 先读取 block 获取 type
     block_data = api.post("/article/v1/doc/read-block", {

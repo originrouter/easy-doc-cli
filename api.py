@@ -27,5 +27,5 @@ def post(endpoint: str, payload: dict) -> dict:
         raise APIError(msg)
     data = resp.json()
     if data.get("code") != 1:
-        raise APIError(f"API 错误 code={data.get('code')}: {data.get('message', '')}")
+        raise APIError(f"API 错误 code={data.get('code')}: {data.get('message', '')} {data.get('data', '')}")
     return data.get("data", {})

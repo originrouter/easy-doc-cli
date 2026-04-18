@@ -212,6 +212,15 @@ def cmd_doc_delete(args):
     print(f"删除成功：{data.get('article')}")
 
 
+def cmd_block_delete(args):
+    sid = _ensure_session()
+    api.post("/article/v1/block/delete", {
+        "sessionId": sid,
+        "blockId": args.id,
+    })
+    print(f"块删除成功：{args.id}")
+
+
 def cmd_list_groups(args):  # noqa: ARG001
     groups = _fetch_doc_list()
     print(f"{'GROUP_ID':<12} NAME")
@@ -413,6 +422,14 @@ def build_parser() -> argparse.ArgumentParser:
     p_bstyle.add_argument("--prop", action="append", metavar="key=value",
                           help="block 特有样式键值对，可重复，如 --prop isTemplate=true --prop indent=true")
     p_bstyle.set_defaults(func=cmd_block_style)
+
+    # --- block ---
+    p_block = sub.add_parser("block", help="块管理")
+    s_block = p_block.add_subparsers(dest="subcommand", required=True)
+
+    p_bdelete = s_block.add_parser("delete", help="删除块")
+    p_bdelete.add_argument("--id", required=True, help="块 ID")
+    p_bdelete.set_defaults(func=cmd_block_delete)
 
     # --- list ---
     p_list = sub.add_parser("list", help="列出 group 或文章")

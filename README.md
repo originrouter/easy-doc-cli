@@ -29,6 +29,7 @@ python cli.py read doc
 | `insert` | 在指定块前后插入新块 |
 | `append` | 向块追加文本 |
 | `replace` | 替换块的全部文本 |
+| `block delete` | 删除指定块 |
 | `block-style` | 修改块的样式 |
 | `style-schema` | 查询块类型支持的样式字段 |
 
@@ -157,6 +158,22 @@ python cli.py read doc --blocks
 ```bash
 python cli.py read block --id <blockId>
 ```
+
+---
+
+## 删除块
+
+### `block delete`
+
+删除指定块。
+
+```bash
+python cli.py block delete --id <blockId>
+```
+
+| 参数 | 说明 |
+|------|------|
+| `--id` | 块 ID（必填） |
 
 ---
 

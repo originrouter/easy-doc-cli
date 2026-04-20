@@ -392,6 +392,8 @@ def build_parser() -> argparse.ArgumentParser:
     p_insert.add_argument("--language", default="纯文本",
                           help=f"代码语言，可选: {', '.join(VALID_LANGUAGES)}")
     p_insert.add_argument("--items", nargs="+", help="列表项（list 类型）")
+    p_insert.add_argument("--author", action="append", nargs="+", metavar="key=value",
+                          help="作者信息，可重复，如 --author name=张三 institution=北京大学 isstar=true")
     p_insert.add_argument("--block", action="append", metavar="JSON",
                           help="原始 JSON 块，可重复使用")
     p_insert.set_defaults(func=cmd_insert)

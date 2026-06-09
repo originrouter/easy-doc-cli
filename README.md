@@ -9,7 +9,7 @@
 python cli.py session create --doc-id <文档ID>
 
 # 2. 读取文档
-python cli.py read doc
+python cli.py read doc --text
 ```
 
 ---
